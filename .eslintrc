@@ -1,0 +1,19 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "notice"
+    ],
+    "extends": [
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "notice/notice": [
+        "error",
+        {
+          "templateFile":"config/copyright.js"
+        }
+      ]
+    }
+  }

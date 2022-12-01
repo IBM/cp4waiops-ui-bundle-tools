@@ -1,0 +1,78 @@
+{
+  "name": "cp4waiops-ui-bundle-tools",
+  "version": "1.0.0",
+  "description": "A set of tools for deploying IBM CloudPak for Watson AIOPs UI extension bundles",
+  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "watch": "npm-run-all clean -p build:js:watch build:cjs:watch",
+    "build": "npm-run-all clean build:js build:docker",
+    "build:js": "tsc",
+    "build:js:watch": "tsc -w",
+    "build:docs": "typedoc",
+    "build:docker": "docker build --build-arg LICENSE_IMAGE=$(jq -r .licenseimage hack/versions.json) --build-arg NODE_IMAGE=$(jq -r .nodeimage hack/versions.json) . -t hyc-hdm-staging-docker-virtual.artifactory.swg-devops.com/${USER}/ui-bundle-api",
+    "lint": "eslint --ext js --ext ts ./src ./test",
+    "lint:fix": "eslint --fix --ext js --ext ts --ext jsx ./src ./test",
+    "lint:ci": "eslint --ext js --ext ts --format checkstyle -o reports/static-analysis/eslint.xml ./src ./test",
+    "test": "nyc ava",
+    "test:ci": "mkdirp reports/unit-test && nyc --reporter=lcov ava --tap | tap-xunit > reports/unit-test/xunit.xml",
+    "test:watch": "ava -w",
+    "nodemon": "nodemon ./src/index.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:IBM/cp4waiops-ui-bundle-tools.git"
+  },
+  "license": "Apache2.0",
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
+    "@tsconfig/node16": "^1.0.3",
+    "@tsconfig/node18": "^1.0.1",
+    "@tsconfig/recommended": "^1.0.1",
+    "@types/bunyan": "^1.8.8",
+    "@types/express": "^4.17.14",
+    "@types/minio": "^7.0.15",
+    "@types/nconf": "^0.10.3",
+    "@types/node": "^18.11.9",
+    "@types/node-fetch": "^2.6.2",
+    "@types/yargs": "^17.0.14",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "ava": "^5.1.0",
+    "eslint": "^8.28.0",
+    "eslint-plugin-notice": "^0.9.10",
+    "mkdirp": "^1.0.4",
+    "node-mocks-http": "^1.12.1",
+    "nodemon": "^2.0.20",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^15.1.0",
+    "prettier": "^2.8.0",
+    "prettier-eslint": "^15.0.1",
+    "rimraf": "^3.0.2",
+    "tap-spec": "^5.0.0",
+    "tap-xunit": "^2.4.1",
+    "ts-node": "^10.9.1",
+    "typedoc": "^0.23.21",
+    "typescript": "^4.9.3"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.test.ts"
+    ],
+    "extensions": [
+      "ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ]
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "jszip": "^3.10.1",
+    "node-fetch": "2.6.x",
+    "yargs": "^17.6.2"
+  }
+}
