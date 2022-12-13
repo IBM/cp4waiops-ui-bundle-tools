@@ -1,19 +1,23 @@
 {
   "name": "cp4waiops-ui-bundle-tools",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "A set of tools for deploying IBM CloudPak for Watson AIOPs UI extension bundles",
   "main": "dist/index.js",
   "files": [
-    "dist"
+    "dist",
+    "bin"
   ],
+  "directories": {
+    "bin": "bin"
+  },
   "scripts": {
+    "start": "ts-node src/cli/index.ts",
     "clean": "rimraf dist",
     "watch": "npm-run-all clean -p build:js:watch build:cjs:watch",
-    "build": "npm-run-all clean build:js build:docker",
+    "build": "npm-run-all clean build:js",
     "build:js": "tsc",
     "build:js:watch": "tsc -w",
     "build:docs": "typedoc",
-    "build:docker": "docker build --build-arg LICENSE_IMAGE=$(jq -r .licenseimage hack/versions.json) --build-arg NODE_IMAGE=$(jq -r .nodeimage hack/versions.json) . -t hyc-hdm-staging-docker-virtual.artifactory.swg-devops.com/${USER}/ui-bundle-api",
     "lint": "eslint --ext js --ext ts ./src ./test",
     "lint:fix": "eslint --fix --ext js --ext ts --ext jsx ./src ./test",
     "lint:ci": "eslint --ext js --ext ts --format checkstyle -o reports/static-analysis/eslint.xml ./src ./test",

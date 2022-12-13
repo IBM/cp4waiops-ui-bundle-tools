@@ -5,11 +5,10 @@
 import {ArgumentsCamelCase, Argv} from 'yargs';
 import { AiopsBundleApiClient } from '../../clients/AiopsBundleApiClient';
 import { UploadBundleTask } from '../../tasks/UploadBundleTask';
-import { indent, line, log, taskFailed, taskStarted, taskSuccess } from '../utils/output';
+import { indent, line, log, taskFailed, taskStarted, taskSuccess, error } from '../utils/output';
+import { getConfig } from '../utils/config';
 
 export interface Arguments {
-  url: string,
-  token: string,
   'tenant-id': string,
   'bundle-path': string,
   'bundle-id': string
@@ -18,14 +17,6 @@ export interface Arguments {
 export const command = 'deploy [options]';
 export const description =  'Deploys a UI extension bundle to the server';
 export const builder = (yargs: Argv<Arguments>) => yargs
-  .option('url', {
-    description: 'The url of the CloudPak for Watson AIOps server',
-    demandOption: true
-  })
-  .option('token', {
-    description: 'The token to use to authenticate',
-    demandOption: true
-  })
   .option('tenant-id', {
     description: 'The tenant id under which the bundle should be uploaded',
     default: 'cfd95b7e-3bc7-4006-a4a8-a73a79c71255'
@@ -40,9 +31,16 @@ export const builder = (yargs: Argv<Arguments>) => yargs
   });
 
 export const handler = async (argv: ArgumentsCamelCase<Arguments>) => {
+  const config = await getConfig();
+
+  if (!config.zenUrl || !config.authToken) {
+    log(error('Please login first using the login command'));
+    return;
+  }
+
   const bundleClient = AiopsBundleApiClient({
-    url: argv.url,
-    token: argv.token
+    url: config.zenUrl,
+    token: config.authToken
   })
 
   const uploadBundleTask = UploadBundleTask(bundleClient);

@@ -37,7 +37,7 @@ export function error(err: unknown) {
   if (err instanceof Error) {
     const extendedErr = <ExtendedError>err;
     if (extendedErr.code) {
-      output += line(`${chalk.bold(extendedErr.code)} ${err.message}`);
+      output += line(`${symbols.error} ${chalk.bold(extendedErr.code)} ${err.message}`);
     } else {
       output += line(`${err.message}`);
     }
@@ -50,6 +50,8 @@ export function error(err: unknown) {
       output += line(indent('Caused by:', 2));
       output += indent(error(extendedErr.cause), 4);
     }
+  } else if (typeof err === 'string') {
+    output += chalk.red(`${symbols.error} ${err}`);
   } else {
     output += line(JSON.stringify(err, null, 2));
   }
