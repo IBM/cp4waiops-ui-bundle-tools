@@ -1,0 +1,6 @@
+{
+  "extends": "@istanbuljs/nyc-config-typescript",
+  "include": "src/**/*",
+  "report-dir": "./reports/coverage",
+  "all": true
+}

@@ -1,0 +1,15 @@
+dist: jammy
+language: node_js
+install:
+  - npm ci --legacy-peer-deps
+
+script:
+  - npm run test:ci
+  - npm run build
+
+deploy:
+  provider: npm
+  email: "$NPM_API_USER"
+  api_key: "$NPM_API_KEY"
+  on:
+    branch: main

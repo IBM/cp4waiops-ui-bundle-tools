@@ -1,0 +1,14 @@
+{
+  "extends": "@tsconfig/node18/tsconfig.json",
+  "include": ["src/**/*"],
+  "compilerOptions": {
+    "outDir": "./dist"
+  },
+  "ts-node": {
+    "files": true
+ },
+  "typedocOptions": {
+    "entryPoints": "./src/index.ts",
+    "out": "docs"
+  }
+}
