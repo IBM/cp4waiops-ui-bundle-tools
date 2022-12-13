@@ -7,10 +7,22 @@ The purpose of this package is to make it easy to develop and deploy UI extensio
 into IBM CloudPak for Watson AIOps.
 
 ## Usage
-You can invoke the tool with `npx`:
+### As a NodeJS CLI tool
+#### Pre-requisites:
+1. [NodeJS v16](https://nodejs.org/en/)
+
+#### Usage:
+The tool can be run directly with npx:
 
 ```
 npx cp4waiops-ui-bundle-tools --help
+```
+
+Or can be installed globally and then ran standalone:
+
+```
+npm install -g cp4waiops-ui-bundle-tools
+aiops-ui --help
 ```
 
 ## Notes
