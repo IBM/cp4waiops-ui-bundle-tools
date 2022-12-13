@@ -1,6 +1,6 @@
 {
   "name": "cp4waiops-ui-bundle-tools",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A set of tools for deploying IBM CloudPak for Watson AIOPs UI extension bundles",
   "main": "dist/index.js",
   "files": [
