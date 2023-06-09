@@ -13,7 +13,7 @@
   "scripts": {
     "start": "ts-node src/cli/index.ts",
     "clean": "rimraf dist",
-    "watch": "npm-run-all clean -p build:js:watch build:cjs:watch",
+    "watch": "npm-run-all clean -p build:js:watch",
     "build": "npm-run-all clean build:js",
     "build:js": "tsc",
     "build:js:watch": "tsc -w",

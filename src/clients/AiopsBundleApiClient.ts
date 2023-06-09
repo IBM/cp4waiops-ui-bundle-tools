@@ -23,11 +23,12 @@ export function AiopsBundleApiClient(config: BundleApiConfiguration): BundleApiC
   const getUrl = (path: string) => new URL(path, config.url).href;
 
   const getErrorInfo = async (res: Response) => {
+    const clone = res.clone();
     try {
       return await res.json();
     } catch(ex) {
       return {
-        message: `Response: ${await res.text()}`
+        message: `Response: ${await clone.text()}`
       };
     }
   }

@@ -6,3 +6,4 @@ export {BundleApiClient} from './clients/BundleApiClient';
 export {AiopsBundleApiClient} from './clients/AiopsBundleApiClient';
 
 export {UploadBundleTask} from './tasks/UploadBundleTask';
+export {loginWithApiKey} from './cli/utils/auth';
