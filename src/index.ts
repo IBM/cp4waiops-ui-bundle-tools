@@ -4,8 +4,6 @@
  */
 export {BundleApiClient} from './clients/BundleApiClient';
 export {AiopsBundleApiClient} from './clients/AiopsBundleApiClient';
-export {ZenAuthApiClient} from './clients/ZenAuthApiClient';
 
 export {UploadBundleTask} from './tasks/UploadBundleTask';
-
-export {getConfig} from './cli/utils/config';
+export {loginWithApiKey} from './cli/utils/auth';
